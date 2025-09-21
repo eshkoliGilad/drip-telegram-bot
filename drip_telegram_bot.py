@@ -71,8 +71,8 @@ def start(update: Update, context: CallbackContext) -> None:
         "Welcome! Commands available:\n"
         "/volume → DRIP LP pairs by 24H volume\n"
         "/ratio → DRIP LP pairs by ratio\n"
-        "/volume_other <TOKEN_CA> → LP pairs of another token by 24H volume\n"
-        "/ratio_other <TOKEN_CA> → LP pairs of another token by ratio"
+        # "/volume_other <TOKEN_CA> → LP pairs of another token by 24H volume\n"
+        # "/ratio_other <TOKEN_CA> → LP pairs of another token by ratio"
     )
 
 
@@ -260,8 +260,8 @@ def main() -> None:
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("volume", volume))
     dp.add_handler(CommandHandler("ratio", ratio))
-    dp.add_handler(CommandHandler("volume_other", volume_other))
-    dp.add_handler(CommandHandler("ratio_other", ratio_other))
+    # dp.add_handler(CommandHandler("volume_other", volume_other))
+    # dp.add_handler(CommandHandler("ratio_other", ratio_other))
 
     logger.info("Bot started.")
     updater.start_polling()
