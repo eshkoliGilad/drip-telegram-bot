@@ -7,8 +7,8 @@ https://api.dexscreener.com/latest/dex/tokens/<TOKEN_CA>
 
 Features
 - /start command: welcome message
-- /volume: WAVE LP pairs sorted by 24H volume (descending), medals for top 3, 💰 for others, summary with SOL/WAVE (raydium).
-- /ratio: WAVE LP pairs sorted by performance ratio (24H Volume ÷ Liquidity).
+- /volume: WAVEX LP pairs sorted by 24H volume (descending), medals for top 3, 💰 for others, summary with SOL/WAVEX (raydium).
+- /ratio: WAVEX LP pairs sorted by performance ratio (24H Volume ÷ Liquidity).
 - /volume_other <TOKEN_CA>: Same as /volume but for any token contract.
 - /ratio_other <TOKEN_CA>: Same as /ratio but for any token contract.
 
@@ -25,7 +25,7 @@ from telegram.ext import Updater, CommandHandler, CallbackContext
 
 DEFAULT_API_URL = (
     "https://api.dexscreener.com/latest/dex/tokens/"
-    "u3nva3iLGfoy9XgzkT7tYzAKkV2x6AkNqnukGNdFiDF"
+    "4431hoJq343DWxrYmbJeniyKnRiavJe6eqQjVJpw5REV"
 )
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
@@ -69,8 +69,8 @@ def fetch_token_endpoint(contract_address: str):
 def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(
         "Welcome! Commands available:\n"
-        "/volume → WAVE LP pairs by 24H volume\n"
-        "/ratio → WAVE LP pairs by ratio\n"
+        "/volume → WAVEX LP pairs by 24H volume\n"
+        "/ratio → WAVEX LP pairs by ratio\n"
     )
 
 
@@ -147,13 +147,13 @@ def handle_volume(update: Update, contract_address: str, show_summary: bool = Fa
 
         total_volume += vol24h_val
         symbols = {base.upper(), quote.upper()}
-        if show_summary and symbols == {"SOL", "WAVE"} and dex.strip().lower() == "raydium":
+        if show_summary and symbols == {"SOL", "WAVEX"} and dex.strip().lower() == "raydium":
             sol_ray_vol += vol24h_val
 
     if show_summary:
         total_other_vol = total_volume - sol_ray_vol
         lines.append("📊 Summary (24H Volume):")
-        lines.append(f"- SOL/WAVE (raydium): *{format_usd(sol_ray_vol)}*")
+        lines.append(f"- SOL/WAVEX (raydium): *{format_usd(sol_ray_vol)}*")
         lines.append(f"- All others combined: *{format_usd(total_other_vol)}*")
 
     msg_text = "\n".join(lines)
@@ -224,11 +224,11 @@ def handle_ratio(update: Update, contract_address: str) -> None:
 # === Command wrappers ===
 
 def volume(update: Update, context: CallbackContext) -> None:
-    handle_volume(update, "u3nva3iLGfoy9XgzkT7tYzAKkV2x6AkNqnukGNdFiDF", show_summary=True)
+    handle_volume(update, "4431hoJq343DWxrYmbJeniyKnRiavJe6eqQjVJpw5REV", show_summary=True)
 
 
 def ratio(update: Update, context: CallbackContext) -> None:
-    handle_ratio(update, "u3nva3iLGfoy9XgzkT7tYzAKkV2x6AkNqnukGNdFiDF") 
+    handle_ratio(update, "4431hoJq343DWxrYmbJeniyKnRiavJe6eqQjVJpw5REV") 
 
 
 def volume_other(update: Update, context: CallbackContext) -> None:
